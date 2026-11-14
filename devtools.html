@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Megafauna Developer Tools</title>
+    <title>Megafauna Sandbox</title>
 
     <style>
         body {
@@ -65,8 +65,10 @@
         <h2>Solver</h2>
 
         <p>
-            Enter a target word. The solver will try to find a combination
-            of dictionary words that reduces its letter parity to zero.
+            Enter a target string (not necessarily a word). The solver will try to find a combination
+            of dictionary words that reduces its letter parity to zero upon addition. Currently it always finds the
+            same solution for a given string, it also crashes if you give it a string with more than about 20 letters
+            (after decomposition). I am trying to improve these...
         </p>
 
         <input
@@ -86,9 +88,8 @@
         <h2>Random Puzzle</h2>
 
         <p>
-            Generate a random word from the ENABLE dictionary.
-            Try to reduce its letter parity to zero using other
-            dictionary words.
+            Generate a random word from the ENABLE dictionary and try to reduce its letter parity to zero using other
+            dictionary words. Note that hints (from the main game) are unavailable here.
         </p>
 
         <button onclick="newRandomPuzzle()">
@@ -124,8 +125,9 @@
         <h2>Equivalence Finder</h2>
 
         <p>
-            Enter any word or string to find dictionary words with the
-            same letter-parity mask.
+            Enter any string to find dictionary words with the
+            same letter-parity mask. Also displays solution lengths, total number of solutions and a breakdown of
+            the number of solutions by length.
         </p>
 
         <input
