@@ -83,6 +83,44 @@
     </section>
 
     <section>
+        <h2>Random Puzzle</h2>
+
+        <p>
+            Generate a random word from the ENABLE dictionary.
+            Try to reduce its letter parity to zero using other
+            dictionary words.
+        </p>
+
+        <button onclick="newRandomPuzzle()">
+            New Random Puzzle
+        </button>
+
+        <div id="randomPuzzleArea" style="display: none;">
+            <h3>Target: <span id="randomTarget"></span></h3>
+
+            <p>
+                Remaining letters:
+                <strong id="randomRemaining"></strong>
+            </p>
+
+            <input
+                id="randomWordInput"
+                type="text"
+                placeholder="Enter a word"
+            >
+
+            <button onclick="addRandomWord()">
+                Add
+            </button>
+
+            <p id="randomMessage" aria-live="polite"></p>
+
+            <h3>Words used</h3>
+            <ul id="randomWordList"></ul>
+        </div>
+    </section>
+
+    <section>
         <h2>Equivalence Finder</h2>
 
         <p>
@@ -105,7 +143,7 @@
             Find equivalents
         </button>
 
-        <p id="equivFinderResult" class="result" aria-live="polite"></p>
+        <div id="equivFinderResult" class="result" aria-live="polite"></div>
     </section>
 
 </body>
