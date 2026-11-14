@@ -105,10 +105,6 @@ function solveDevtoolsPuzzle() {
 
     const targetWord = normalizeWord(input.value);
 
-    if (targetWord === "") {
-        result.textContent = "Please enter a valid target word.";
-        return;
-    }
 
    
 
