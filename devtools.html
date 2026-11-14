@@ -57,7 +57,7 @@
 
 <body>
 
-    <h1>Megafauna Developer Tools</h1>
+    <h1>Megafauna Sandbox</h1>
 
     <p id="dictionaryStatus">Loading dictionary...</p>
 
@@ -83,25 +83,49 @@
         <p id="solverResult" class="result" aria-live="polite"></p>
     </section>
 
+    
     <section>
         <h2>Random Puzzle</h2>
 
         <p>
-            Generate a random word from the ENABLE dictionary and try to reduce its letter parity to zero using other
-            dictionary words. Note that hints (from the main game) are unavailable here.
+            Generate a random word from the ENABLE dictionary.
+            Try to reduce its letter parity to zero using other
+            dictionary words.
         </p>
 
-        <button onclick="newRandomPuzzle()">
-            New Random Puzzle
-        </button>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <button onclick="newRandomPuzzle()">
+                New Random Puzzle
+            </button>
+
+            <label>
+                <input
+                    id="autoNewPuzzle"
+                    type="checkbox"
+                    style="vertical-align: middle;"
+                >
+                Automatically start a new puzzle
+            </label>
+        </div>
 
         <div id="randomPuzzleArea" style="display: none;">
             <h3>Target: <span id="randomTarget"></span></h3>
 
-            <p>
-                Remaining letters:
-                <strong id="randomRemaining"></strong>
-            </p>
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <p style="margin: 5px 0;">
+                    Remaining letters:
+                    <strong id="randomRemaining" style="display: none;"></strong>
+                </p>
+
+                <label>
+                    <input
+                        id="showRemaining"
+                        type="checkbox"
+                        style="vertical-align: middle;"
+                    >
+                    Show remaining letters
+                </label>
+            </div>
 
             <input
                 id="randomWordInput"
