@@ -118,35 +118,6 @@
     width: 100%;
 }
 
-#roadmapPanel {
-    background: white;
-    border-radius: 10px;
-    padding: 18px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    line-height: 1.5;
-}
-
-#roadmapPanel h2 {
-    font-size: 24px;
-    letter-spacing: normal;
-    margin-top: 0;
-}
-
-#roadmapPanel h3 {
-    font-size: 17px;
-    margin-top: 22px;
-    margin-bottom: 6px;
-}
-
-#roadmapPanel p {
-    font-size: 14px;
-}
-
-#roadmapPanel ul {
-    padding-left: 20px;
-    font-size: 14px;
-}
-
 #ccMenu {
     min-width: 0;
     width: 100%;
@@ -311,64 +282,7 @@
 <title>Megafauna v0.8</title>
 <div id="mainMenuLayout">
 
-    <section id="roadmapPanel">
-        <h2>What's This?</h2>
-
-        <p>
-            This is the beta for Megafauna, a game about cancelling words by pairing letters! 
-            Below is a short tutorial, some explanations, and a roadmap for some features
-            I'm planning to add.
-        </p>
-
-        <h3>How to Play</h3>
-        <p>
-            Imagine if all you cared about in a word was just the parity of the 26 letter occurrences. Not the 
-            order of the letters, nor even the number of occurrences, but just the parity. For example, the 
-            letter frequencies for the word "BAD" would be "Odd, Odd, Even, Odd, Even, Even, Even...Even" for
-            the 26 letters. Words then become 26-dimensional binary vectors!
-            The natural game arises of adding English words to a word to cancel out the target word (here 
-            the Enhanced North American Benchmark Lexicon is used as the dictionary).
-            This is actually equivalent to creating the string,
-            though I personally find it easier to think of it as deleting.
-        </p>
-
-        <h3> Difficulty, Hints and Scoring</h3>
-        <p>
-            Most puzzles you will see currently are Curated Challenges, designed by yours truly and released in 
-            themed sets of 10 (a sandbox feature exists and is currently being improved). All curated challenges
-            have at least one 1-solve (one can delete the target word by adding one word). They are also assigned 
-            an integer difficulty rating from 1 to 5, which are averaged to give an indicator of a 
-            particular set's difficulty. Take in mind that these are graded according to the difficulty of finding
-            a/the 1-solve(s). Roughly,
-            <li>1 star: super easy, mostly morale boosters.</li>
-            <li>2 stars: Requires a bit of work, but still not hard to find with multiple solutions. </li>
-            <li>3 stars: Most puzzles which require some playing around go here.</li>
-            <li>4 stars: Very difficult: puzzles with only 1-solve and equivalents go here.</li>
-            <li>5 stars: Impossible: puzzles with only 1-solve that is a particularly obscure 
-                or difficult-to-find word go here. </li>
-            You can use two hints to help you: Thinking Aid and Reveal 1-solve lengths. The former tells you
-            the simplified result of all your words added to the target, as well as allowing shuffling and adding
-            pairs of letters which would not change the underlying vector (hence, it is theoretically possible to 
-            find a 1-solve simply by playing around with the Thinking Aid). The latter tells you the number of 1-solves
-            and their lengths, which is useful information for reverse engineering.
-            Scoring is calculated according to the formula: (100-penalty1-penalty2)*multiplier, where the two penalties
-            are 20 points for using the respective hints and the multiplier is based on the number of words used. A 1-solve
-            gets 1x, 2-solve 0.5x, 3-solve 0.25x, and 4 and above nets 0 points. Thus, a 1-solve even using both hints (60)
-            earns more points than a no-hint 2-solve.
-        </p>
-
-        <h3>Planned/Upcoming Features</h3>
-        <ul>
-            <li>Sandbox with words taken randomly from the dictionary.</li>
-            <li>Make changes to allow puzzle progress to survive a page refresh.</li>
-            <li>Add practice puzzles (let players find 1-solves for the 26 strings of Hamming weight 1, as well
-                as the null string).</li>
-            <li>Add usernames (optional, for leaderboard purposes only).</li>
-            <li>Allow players to fix letter positions for Thinking Aid.</li>
-            <li>Sed do eiusmod tempor incididunt ut labore.</li>
-        </ul>
-    </section>
-
+    
     <div id="ccMenu">
     <h2>Curated Challenges</h2>
    
