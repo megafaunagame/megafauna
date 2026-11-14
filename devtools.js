@@ -113,6 +113,7 @@ function buildSolverDictionary(targetWord) {
 function solveDevtoolsPuzzle() {
     const result = document.getElementById("solverResult");
     const input = document.getElementById("solverInput");
+    result.replaceChildren();
 
     if (!dictionaryLoaded) {
         result.textContent = "Dictionary is still loading.";
@@ -490,9 +491,6 @@ document.getElementById("equivFinderInput").addEventListener("keydown", event =>
     if (event.key === "Enter") {
         equivFinder();
     }
-});
-document.getElementById("equivFinderInput").addEventListener("input", () => {
-    document.getElementById("equivFinderResult").replaceChildren();
 });
 
 document.getElementById("randomWordInput").addEventListener("keydown", event => {
