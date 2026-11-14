@@ -110,10 +110,7 @@ function solveDevtoolsPuzzle() {
         return;
     }
 
-    if (!dictionary.has(targetWord)) {
-        result.textContent = "Target word is not in the dictionary.";
-        return;
-    }
+   
 
     const currentMask = wordToMask(targetWord);
 
