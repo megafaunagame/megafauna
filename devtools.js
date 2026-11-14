@@ -404,11 +404,6 @@ function equivFinder() {
 
     const word = normalizeWord(input.value);
 
-    if (word === "") {
-        result.textContent = "Please enter at least one letter.";
-        return;
-    }
-
     const mask = wordToMask(word);
     const sortBy = document.getElementById("equivFinderSort").value;
 
