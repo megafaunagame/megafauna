@@ -492,3 +492,9 @@ document.getElementById("equivFinderInput").addEventListener("keydown", event =>
         equivFinder();
     }
 });
+
+document.getElementById("randomWordInput").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        addRandomWord();
+    }
+});
