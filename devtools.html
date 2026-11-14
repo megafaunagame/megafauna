@@ -70,15 +70,11 @@
             (after decomposition). 
         </p>
 
-        <input
-            id="solverInput"
-            type="text"
-            placeholder="Enter target word"
-        >
-
-        <button onclick="solveDevtoolsPuzzle()">
-            Solve
-        </button>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+    <input id="solverInput" type="text" placeholder="Enter a word">
+    <button onclick="solveDevtoolsPuzzle()">Solve</button>
+    <button onclick="clearSolverInput()">Clear</button>
+</div>
 
         <p id="solverResult" class="result" aria-live="polite"></p>
     </section>
