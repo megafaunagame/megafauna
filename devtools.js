@@ -271,6 +271,7 @@ function reconstructSolution(
 // SECTION 4: EQUIVALENCE FINDER
 // ====================
 
+
 function equivFinder() {
     const result = document.getElementById("equivFinderResult");
     const input = document.getElementById("equivFinderInput");
@@ -301,9 +302,34 @@ function equivFinder() {
         matches.sort((a, b) => a.localeCompare(b));
     }
 
-    result.textContent = matches.length > 0
-        ? matches.join("\n")
-        : "No matching words found.";
+    // Display matching words with their lengths.
+    const wordList = matches
+        .map(word => `${word} (${word.length})`)
+        .join("\n");
+
+    // Count solutions of each length.
+    const lengthCounts = new Map();
+
+    for (const word of matches) {
+        lengthCounts.set(
+            word.length,
+            (lengthCounts.get(word.length) || 0) + 1
+        );
+    }
+
+    const total = matches.length;
+
+    const summary = [
+        `Total solutions: ${total}`,
+        "",
+        "Solutions by length:",
+        ...[...lengthCounts.entries()]
+            .sort((a, b) => a[0] - b[0])
+            .map(([length, count]) => `${length} letters: ${count}`)
+    ].join("\n");
+
+    result.textContent =
+        wordList + "\n\n" + summary;
 }
 
 
