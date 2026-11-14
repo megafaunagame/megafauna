@@ -420,7 +420,8 @@ function equivFinder() {
         matches.sort((a, b) => a.localeCompare(b));
     }
 
-    // Count solutions of each length.
+    // Show the solution lengths breakdown only when requested.
+if (document.getElementById("showSolutionLengths").checked) {
     const lengthCounts = new Map();
 
     for (const word of matches) {
@@ -430,10 +431,6 @@ function equivFinder() {
         );
     }
 
-    // Clear previous results.
-    result.replaceChildren();
-
-    // Create the summary table.
     const table = document.createElement("table");
     table.style.borderCollapse = "collapse";
     table.style.marginBottom = "20px";
@@ -456,10 +453,8 @@ function equivFinder() {
         table.appendChild(row);
     }
 
-    // Total row comes first.
     addRow("Total solutions", matches.length);
 
-    // Then one row for each length with at least one match.
     for (const [length, count] of [...lengthCounts.entries()]
         .sort((a, b) => a[0] - b[0])) {
 
@@ -467,11 +462,9 @@ function equivFinder() {
     }
 
     result.appendChild(table);
-
+}
     // Display the full list of matching words.
-    const heading = document.createElement("h3");
-    heading.textContent = "Equivalent words";
-    result.appendChild(heading);
+    
 
     const wordList = document.createElement("div");
     wordList.style.whiteSpace = "pre-wrap";
