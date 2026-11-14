@@ -306,8 +306,13 @@ function newRandomPuzzle() {
     document.getElementById("randomTarget").textContent =
         randomTarget.toUpperCase();
 
-    document.getElementById("randomRemaining").textContent =
-        maskToLetters(randomMask);
+    const remainingElement = document.getElementById("randomRemaining");
+
+    remainingElement.textContent = maskToLetters(randomMask);
+    remainingElement.style.display =
+        document.getElementById("showRemaining").checked
+            ? "inline"
+            : "none";
 
     document.getElementById("randomWordList").replaceChildren();
 
@@ -364,13 +369,17 @@ function addRandomWord() {
     document.getElementById("randomRemaining").textContent =
         maskToLetters(randomMask);
 
-    if (randomMask === 0) {
+        if (randomMask === 0) {
         randomPuzzleSolved = true;
 
         message.textContent =
             `Solved! You used ${randomPlayedWords.length} word(s).`;
 
         input.disabled = true;
+
+        if (document.getElementById("autoNewPuzzle").checked) {
+            newRandomPuzzle();
+        }
     } else {
         message.textContent = "";
     }
@@ -497,4 +506,8 @@ document.getElementById("randomWordInput").addEventListener("keydown", event => 
     if (event.key === "Enter") {
         addRandomWord();
     }
+});
+document.getElementById("showRemaining").addEventListener("change", event => {
+    document.getElementById("randomRemaining").style.display =
+        event.target.checked ? "inline" : "none";
 });
