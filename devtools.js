@@ -491,6 +491,9 @@ document.getElementById("equivFinderInput").addEventListener("keydown", event =>
         equivFinder();
     }
 });
+document.getElementById("equivFinderInput").addEventListener("input", () => {
+    document.getElementById("equivFinderResult").replaceChildren();
+});
 
 document.getElementById("randomWordInput").addEventListener("keydown", event => {
     if (event.key === "Enter") {
