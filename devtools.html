@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megafauna Developer Tools</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        input, select, button {
+            font-size: 16px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        input {
+            max-width: 100%;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 15px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        #dictionaryStatus {
+            text-align: center;
+            color: #666;
+        }
+    </style>
+
+    <script src="devtools.js" defer></script>
+</head>
+
+<body>
+
+    <h1>Megafauna Developer Tools</h1>
+
+    <p id="dictionaryStatus">Loading dictionary...</p>
+
+    <section>
+        <h2>Solver</h2>
+
+        <p>
+            Enter a target word. The solver will try to find a combination
+            of dictionary words that reduces its letter parity to zero.
+        </p>
+
+        <input
+            id="solverInput"
+            type="text"
+            placeholder="Enter target word"
+        >
+
+        <button onclick="solveDevtoolsPuzzle()">
+            Solve
+        </button>
+
+        <p id="solverResult" class="result" aria-live="polite"></p>
+    </section>
+
+    <section>
+        <h2>Equivalence Finder</h2>
+
+        <p>
+            Enter any word or string to find dictionary words with the
+            same letter-parity mask.
+        </p>
+
+        <input
+            id="equivFinderInput"
+            type="text"
+            placeholder="Enter any string"
+        >
+
+        <select id="equivFinderSort">
+            <option value="alphabetical">Alphabetical</option>
+            <option value="length">By length</option>
+        </select>
+
+        <button onclick="equivFinder()">
+            Find equivalents
+        </button>
+
+        <p id="equivFinderResult" class="result" aria-live="polite"></p>
+    </section>
+
+</body>
+</html>
