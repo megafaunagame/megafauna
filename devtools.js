@@ -9,6 +9,7 @@ let randomTarget = "";
 let randomMask = 0;
 let randomPlayedWords = [];
 let randomPuzzleSolved = false;
+let autoNewPuzzlePending = false;
 
 function normalizeWord(word) {
     return word
@@ -285,6 +286,7 @@ function newRandomPuzzle() {
             "Dictionary is still loading.";
         return;
     }
+    autoNewPuzzlePending = false;
 
     const candidates = [...dictionary].filter(
         word => wordToMask(word) !== 0
@@ -370,18 +372,18 @@ function addRandomWord() {
         maskToLetters(randomMask);
 
         if (randomMask === 0) {
-        randomPuzzleSolved = true;
+    randomPuzzleSolved = true;
 
-        message.textContent =
-            `Solved! You used ${randomPlayedWords.length} word(s).`;
+    message.textContent =
+        `Solved! You used ${randomPlayedWords.length} word(s).`;
 
-        input.disabled = true;
-
-        if (document.getElementById("autoNewPuzzle").checked) {
-            newRandomPuzzle();
-        }
+    if (document.getElementById("autoNewPuzzle").checked) {
+        autoNewPuzzlePending = true;
+        input.disabled = false;
     } else {
-        message.textContent = "";
+        input.disabled = true;
+    }
+} else {        message.textContent = "";
     }
 }
 
@@ -505,4 +507,15 @@ document.getElementById("randomWordInput").addEventListener("keydown", event => 
 document.getElementById("showRemaining").addEventListener("change", event => {
     document.getElementById("randomRemaining").style.display =
         event.target.checked ? "inline" : "none";
+});
+document.getElementById("randomWordInput").addEventListener("input", event => {
+    if (!autoNewPuzzlePending || event.target.value.trim() === "") {
+        return;
+    }
+
+    const typedText = event.target.value;
+
+    newRandomPuzzle();
+
+    event.target.value = typedText;
 });
