@@ -162,10 +162,20 @@
             <option value="length">By length</option>
             <option value="alphabetical">Alphabetical</option>
         </select>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+    <button onclick="equivFinder()">
+        Find equivalent words
+    </button>
 
-        <button onclick="equivFinder()">
-            Find equivalents
-        </button>
+    <label>
+        <input
+            id="showSolutionLengths"
+            type="checkbox"
+            style="vertical-align: middle;"
+        >
+        Show solution lengths breakdown
+    </label>
+</div>
 
         <div id="equivFinderResult" class="result" aria-live="polite"></div>
     </section>
