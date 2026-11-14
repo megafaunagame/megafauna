@@ -5,6 +5,10 @@
 
 let dictionary = new Set();
 let dictionaryLoaded = false;
+let randomTarget = "";
+let randomMask = 0;
+let randomPlayedWords = [];
+let randomPuzzleSolved = false;
 
 function normalizeWord(word) {
     return word
@@ -60,6 +64,17 @@ function wordToMask(word) {
     }
 
     return mask;
+}
+function maskToLetters(mask) {
+    let result = "";
+
+    for (let i = 0; i < 26; i++) {
+        if (mask & (1 << i)) {
+            result += String.fromCharCode(97 + i).toUpperCase();
+        }
+    }
+
+    return result || "—";
 }
 
 
@@ -261,8 +276,112 @@ function reconstructSolution(
 
 
 // ====================
+// SECTION 4: RANDOM PUZZLE
+// ====================
+
+function newRandomPuzzle() {
+    if (!dictionaryLoaded) {
+        document.getElementById("randomMessage").textContent =
+            "Dictionary is still loading.";
+        return;
+    }
+
+    const candidates = [...dictionary].filter(
+        word => wordToMask(word) !== 0
+    );
+
+    if (candidates.length === 0) {
+        document.getElementById("randomMessage").textContent =
+            "No suitable words are available.";
+        return;
+    }
+
+    randomTarget =
+        candidates[Math.floor(Math.random() * candidates.length)];
+
+    randomMask = wordToMask(randomTarget);
+    randomPlayedWords = [];
+    randomPuzzleSolved = false;
+
+    document.getElementById("randomTarget").textContent =
+        randomTarget.toUpperCase();
+
+    document.getElementById("randomRemaining").textContent =
+        maskToLetters(randomMask);
+
+    document.getElementById("randomWordList").replaceChildren();
+
+    document.getElementById("randomMessage").textContent = "";
+
+    document.getElementById("randomWordInput").value = "";
+    document.getElementById("randomWordInput").disabled = false;
+
+    document.getElementById("randomPuzzleArea").style.display = "block";
+
+    document.getElementById("randomWordInput").focus();
+}
+
+
+function addRandomWord() {
+    const message = document.getElementById("randomMessage");
+    const input = document.getElementById("randomWordInput");
+
+    if (randomPuzzleSolved) {
+        return;
+    }
+
+    if (!dictionaryLoaded) {
+        message.textContent = "Dictionary is still loading.";
+        return;
+    }
+
+    const word = input.value.trim().toLowerCase();
+
+    if (word === "") {
+        return;
+    }
+
+    if (!dictionary.has(word)) {
+        message.textContent = "Not in dictionary.";
+        return;
+    }
+
+    if (word === randomTarget) {
+        message.textContent = "You cannot use the target word.";
+        return;
+    }
+
+    randomMask ^= wordToMask(word);
+    randomPlayedWords.push(word);
+
+    const listItem = document.createElement("li");
+    listItem.textContent = word;
+    document.getElementById("randomWordList").appendChild(listItem);
+
+    input.value = "";
+    input.focus();
+
+    document.getElementById("randomRemaining").textContent =
+        maskToLetters(randomMask);
+
+    if (randomMask === 0) {
+        randomPuzzleSolved = true;
+
+        message.textContent =
+            `Solved! You used ${randomPlayedWords.length} word(s).`;
+
+        input.disabled = true;
+    } else {
+        message.textContent = "";
+    }
+}
+
+
+
+// ====================
 // SECTION 4: EQUIVALENCE FINDER
 // ====================
+
 
 
 function equivFinder() {
@@ -295,11 +414,6 @@ function equivFinder() {
         matches.sort((a, b) => a.localeCompare(b));
     }
 
-    // Display matching words with their lengths.
-    const wordList = matches
-        .map(word => `${word} (${word.length})`)
-        .join("\n");
-
     // Count solutions of each length.
     const lengthCounts = new Map();
 
@@ -310,21 +424,58 @@ function equivFinder() {
         );
     }
 
-    const total = matches.length;
+    // Clear previous results.
+    result.replaceChildren();
 
-    const summary = [
-        `Total solutions: ${total}`,
-        "",
-        "Solutions by length:",
-        ...[...lengthCounts.entries()]
-            .sort((a, b) => a[0] - b[0])
-            .map(([length, count]) => `${length} letters: ${count}`)
-    ].join("\n");
+    // Create the summary table.
+    const table = document.createElement("table");
+    table.style.borderCollapse = "collapse";
+    table.style.marginBottom = "20px";
 
-    result.textContent =
-        wordList + "\n\n" + summary;
+    function addRow(label, count) {
+        const row = document.createElement("tr");
+
+        const labelCell = document.createElement("td");
+        labelCell.textContent = label;
+
+        const countCell = document.createElement("td");
+        countCell.textContent = count;
+
+        for (const cell of [labelCell, countCell]) {
+            cell.style.border = "1px solid #ccc";
+            cell.style.padding = "6px 12px";
+        }
+
+        row.append(labelCell, countCell);
+        table.appendChild(row);
+    }
+
+    // Total row comes first.
+    addRow("Total solutions", matches.length);
+
+    // Then one row for each length with at least one match.
+    for (const [length, count] of [...lengthCounts.entries()]
+        .sort((a, b) => a[0] - b[0])) {
+
+        addRow(`${length} letters`, count);
+    }
+
+    result.appendChild(table);
+
+    // Display the full list of matching words.
+    const heading = document.createElement("h3");
+    heading.textContent = "Equivalent words";
+    result.appendChild(heading);
+
+    const wordList = document.createElement("div");
+    wordList.style.whiteSpace = "pre-wrap";
+
+    wordList.textContent = matches
+        .map(word => `${word} (${word.length})`)
+        .join("\n");
+
+    result.appendChild(wordList);
 }
-
 
 // ====================
 // SECTION 5: INPUT SETUP
