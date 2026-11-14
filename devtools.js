@@ -476,7 +476,17 @@ if (document.getElementById("showSolutionLengths").checked) {
 
     result.appendChild(wordList);
 }
+function clearSolverInput() {
+    document.getElementById("solverInput").value = "";
+    document.getElementById("solverResult").replaceChildren();
+    document.getElementById("solverInput").focus();
+}
 
+function clearEquivFinderInput() {
+    document.getElementById("equivFinderInput").value = "";
+    document.getElementById("equivFinderResult").replaceChildren();
+    document.getElementById("equivFinderInput").focus();
+}
 // ====================
 // SECTION 5: INPUT SETUP
 // ====================
