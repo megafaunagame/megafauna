@@ -114,10 +114,7 @@ function solveDevtoolsPuzzle() {
 
     const currentMask = wordToMask(targetWord);
 
-    if (currentMask === 0) {
-        result.textContent = "This target already has a zero mask.";
-        return;
-    }
+    
 
     // Rebuild the solver dictionary for this target.
     // This excludes the target word itself.
