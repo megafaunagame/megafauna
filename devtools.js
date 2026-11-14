@@ -400,6 +400,8 @@ function equivFinder() {
     const result = document.getElementById("equivFinderResult");
     const input = document.getElementById("equivFinderInput");
 
+    result.replaceChildren();
+    
     if (!dictionaryLoaded) {
         result.textContent = "Dictionary is still loading.";
         return;
